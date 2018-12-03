@@ -24,6 +24,7 @@ public class LoseCondition : MonoBehaviour {
     {
         if (collision.gameObject == ball)
         {
+            EventManager.RaiseEventGameOver();
             bal.transform.position = new Vector3(0, 0, 0);
             bal.isLost = true;
 

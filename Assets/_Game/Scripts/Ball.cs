@@ -60,6 +60,7 @@ public class Ball : MonoBehaviour {
                     {
                         audioSource.Play();
                     }
+                   // EventManager.RaiseEventGameStarted();
                     AdManager.isButtonActive = true;
                 //    AdManager.Instance.LoadInterstitial();
                 }
@@ -116,6 +117,7 @@ public class Ball : MonoBehaviour {
             rigidBody.gravityScale = 1f;
             rigidBody.velocity = new Vector2(0, 4f);
             audioSource.Play();
+            EventManager.RaiseEventGameStarted();
         }
     }
 #endif
