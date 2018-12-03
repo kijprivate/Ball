@@ -1,0 +1,21 @@
+<dependencies>
+  <packages>
+    <package>com.android.support:recyclerview-v7:27.1.0</package>
+    <package>com.facebook.android:audience-network-sdk:4.28.2</package>
+    <package>com.google.ads.mediation:facebook:4.28.2.0</package>
+    <package>com.google.ads.mediation:inmobi:7.1.0.0</package>
+    <package>com.google.ads.mediation:ironsource:6.7.9.0</package>
+    <package>com.google.ads.mediation:mytarget:5.1.1.0</package>
+    <package>com.google.android.gms:play-services-base:15.0.1</package>
+    <package>com.google.firebase:firebase-analytics:16.0.1</package>
+    <package>com.google.firebase:firebase-analytics-unity:5.1.1</package>
+    <package>com.google.firebase:firebase-app-unity:5.1.1</package>
+    <package>com.google.firebase:firebase-common:16.0.0</package>
+    <package>com.google.firebase:firebase-core:16.0.1</package>
+    <package>com.inmobi.monetization:inmobi-ads:7.1.0</package>
+    <package>com.ironsource.sdk:mediationsdk:6.7.9</package>
+    <package>com.my.target:mytarget-sdk:5.1.1</package>
+    <package>com.squareup.picasso:picasso:2.5.2</package>
+  </packages>
+  <files />
+</dependencies>
