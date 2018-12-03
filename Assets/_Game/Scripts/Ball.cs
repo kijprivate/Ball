@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Ball : MonoBehaviour {
 
-    public Texture texture;
-    public Texture texture2;
     public AudioClip[] audioClips;
 
     Rigidbody2D rigidBody;
@@ -25,7 +23,7 @@ public class Ball : MonoBehaviour {
         rigidBody.gravityScale = 0f;
         isLost = false;
 
-        AdManager.Instance.ShowBanner();
+        //AdManager.Instance.ShowBanner();
     }
 	
 	// Update is called once per frame
@@ -112,10 +110,13 @@ public class Ball : MonoBehaviour {
 #if UNITY_EDITOR_WIN
     private void OnMouseDown()
     {
-        isPlaying = true;
-        rigidBody.gravityScale = 1f;
-        rigidBody.velocity = new Vector2(0, 4f);
-        audioSource.Play();
+        if (top.Contains(Input.mousePosition))
+        {
+            isPlaying = true;
+            rigidBody.gravityScale = 1f;
+            rigidBody.velocity = new Vector2(0, 4f);
+            audioSource.Play();
+        }
     }
 #endif
 }
