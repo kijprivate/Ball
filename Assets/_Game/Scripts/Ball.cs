@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Ball : MonoBehaviour {
+
+    public float distance = 0;
+    public bool isPlaying = false;
 
     [SerializeField]
     private AudioClip[] audioClips;
@@ -12,12 +16,10 @@ public class Ball : MonoBehaviour {
     AudioSource audioSource;
     Animator animator;
 
-    Rect bottom=new  Rect(0, 0, Screen.width , 2*Screen.height / 5);
-    Rect top = new Rect(0, 2*Screen.height / 5, Screen.width, 3*Screen.height / 5);
+    // Rect bottom=new  Rect(0, 0, Screen.width , 2*Screen.height / 5);
+    Rect top = new Rect(0, 2 * Screen.height / 5, Screen.width, 3 * Screen.height / 5);
 
-    public bool isPlaying = false;
-    public bool isLost = false;
-    public float distance = 0;
+    private bool gameOver = false;
 
     private void Awake()
     {
@@ -29,16 +31,19 @@ public class Ball : MonoBehaviour {
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.gravityScale = 0f;
-        isLost = false;
+        gameOver = false;
 
+        
         //AdManager.Instance.ShowBanner();
     }
 	
 	void Update ()
     {
-        CountingDistance();
+        if (gameOver) { return; }
 
-        DetermineMenuTouchArea();
+        SetTouchArea();
+        CountingDistance();
+        Tap();
     }
 
     private void CountingDistance()
@@ -46,42 +51,39 @@ public class Ball : MonoBehaviour {
         if(transform.position.y>distance)
         { distance = Mathf.Round((this.transform.position.y) * 100f) / 100f; }
     }
-    private void DetermineMenuTouchArea()
+
+    private void SetTouchArea()
     {
-        if (!isPlaying)
+        if (isPlaying) { return; }
+        if (Input.GetMouseButtonDown(0) && top.Contains(Input.mousePosition))
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            EventManager.RaiseEventGameStarted();
+            isPlaying = true;
+            rigidBody.gravityScale = 1f;
+            rigidBody.velocity = new Vector2(0, 4f);
+            if (audioSource.clip.name == "Tap")
             {
-                if (top.Contains(Input.GetTouch(0).position))
-                {
-                    isPlaying = true;
-                    rigidBody.gravityScale = 1f;
-                    rigidBody.velocity = new Vector2(0, 4f);
-                    if (audioSource.clip.name == "Tap")
-                    {
-                        audioSource.Play();
-                    }
-                   // EventManager.RaiseEventGameStarted();
-                    AdManager.isButtonActive = true;
-                //    AdManager.Instance.LoadInterstitial();
-                }
+                audioSource.Play();
             }
         }
-        else if (isPlaying)
+    }
+
+    private void Tap()
+    {
+        if (!isPlaying) { return; }
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            rigidBody.velocity = new Vector2(0, 4f);
+            if (audioSource.clip.name == "Tap")
             {
-                rigidBody.velocity = new Vector2(0, 4f);
-                if (audioSource.clip.name == "Tap")
-                {
-                    audioSource.Play();
-                }
+                audioSource.Play();
             }
         }
     }
 
     private void OnGameOver()
     {
+        gameOver = true;
         PlayGameOverSound();
         rigidBody.gravityScale = 0f;
         rigidBody.velocity = Vector3.zero;
@@ -94,24 +96,11 @@ public class Ball : MonoBehaviour {
         animator.SetTrigger("StartPlaying");
         EventManager.EventGameStarted -= OnGameStarted;
     }
+
     private void PlayGameOverSound()
     {
         audioSource.clip = audioClips[1];
         audioSource.volume = 0.7f;
         audioSource.Play();
     }
-
-#if UNITY_EDITOR_WIN
-    private void OnMouseDown()
-    {
-        if (top.Contains(Input.mousePosition))
-        {
-            isPlaying = true;
-            rigidBody.gravityScale = 1f;
-            rigidBody.velocity = new Vector2(0, 4f);
-            audioSource.Play();
-            EventManager.RaiseEventGameStarted();
-        }
-    }
-#endif
 }

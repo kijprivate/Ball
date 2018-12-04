@@ -21,6 +21,9 @@ public class CanvasManager : MonoBehaviour {
     GameObject gameOverPanel;
 
     [SerializeField, Tooltip("Child of this canvas object")]
+    GameObject progressBar;
+
+    [SerializeField, Tooltip("Child of this canvas object")]
     Button soundButton;
 
     [SerializeField, Tooltip("Ball on the scene")]
@@ -88,7 +91,11 @@ public class CanvasManager : MonoBehaviour {
         if (countDistance > PlayerPrefsManager.GetHighScore())
         { PlayerPrefsManager.SetHighScore(countDistance); }
 
-        gameOverPanel.SetActive(true);
+        if(countDistance>10f)
+        { progressBar.SetActive(true); }
+        else
+        { gameOverPanel.SetActive(true); }
+
         EventManager.EventGameOver -= OnGameOver;
     }
 
