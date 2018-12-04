@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class Ball : MonoBehaviour {
 
-    public AudioClip[] audioClips;
+    [SerializeField]
+    private AudioClip[] audioClips;
 
     Rigidbody2D rigidBody;
     AudioSource audioSource;
-    bool isMovingDown = true;
+    Animator animator;
+
     Rect bottom=new  Rect(0, 0, Screen.width , 2*Screen.height / 5);
     Rect top = new Rect(0, 2*Screen.height / 5, Screen.width, 3*Screen.height / 5);
 
@@ -17,7 +19,13 @@ public class Ball : MonoBehaviour {
     public bool isLost = false;
     public float distance = 0;
 
+    private void Awake()
+    {
+        EventManager.EventGameOver += OnGameOver;
+        EventManager.EventGameStarted += OnGameStarted;
+    }
     void Start () {
+        animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.gravityScale = 0f;
@@ -26,25 +34,18 @@ public class Ball : MonoBehaviour {
         //AdManager.Instance.ShowBanner();
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
-        BallMenuAnimation();
-
         CountingDistance();
 
         DetermineMenuTouchArea();
-
     }
 
     private void CountingDistance()
     {
-        if (transform.position.y > distance)
-        {
-            distance = Mathf.Round(this.transform.position.y * 100f) / 100f;
-        }
+        if(transform.position.y>distance)
+        { distance = Mathf.Round((this.transform.position.y) * 100f) / 100f; }
     }
-
     private void DetermineMenuTouchArea()
     {
         if (!isPlaying)
@@ -79,33 +80,25 @@ public class Ball : MonoBehaviour {
         }
     }
 
-    private void BallMenuAnimation()
+    private void OnGameOver()
     {
-        if (!isPlaying)
-        {
-            if (this.transform.position.y <= -0.66)
-            {
-                isMovingDown = false;
-            }
-            if (this.transform.position.y >= 0)
-            {
-                isMovingDown = true;
-            }
+        PlayGameOverSound();
+        rigidBody.gravityScale = 0f;
+        rigidBody.velocity = Vector3.zero;
+        //Destroy(this.gameObject);
+        EventManager.EventGameOver -= OnGameOver;
+    }
 
-            if (this.transform.position.y >= -0.66 && isMovingDown)
-            {
-                Vector2 ballPos = this.transform.position;
-                ballPos.y -= 0.7f * Time.deltaTime;
-                this.transform.position = ballPos;
-            }
-            else if (this.transform.position.y <= 0 && !isMovingDown)
-            {
-                Vector2 ballPos = this.transform.position;
-                ballPos.y += 0.7f * Time.deltaTime;
-                this.transform.position = ballPos;
-            }
-
-        }
+    private void OnGameStarted()
+    {
+        animator.SetTrigger("StartPlaying");
+        EventManager.EventGameStarted -= OnGameStarted;
+    }
+    private void PlayGameOverSound()
+    {
+        audioSource.clip = audioClips[1];
+        audioSource.volume = 0.7f;
+        audioSource.Play();
     }
 
 #if UNITY_EDITOR_WIN

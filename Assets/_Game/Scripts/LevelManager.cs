@@ -4,54 +4,38 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour 
 {
+    private static LevelManager _instance;
+    public static LevelManager Instance { get { return _instance; } }
 
-    public Ball ballPrefab;
-
-    [SerializeField]
-    Sprite[] ballSprites;
-
-	public void QuitRequest()
-	{
-		Application.Quit ();
-
-	}
-	public void LoadLevel(string name)
-	{
-       SceneManager.LoadScene(name);
-	}
-
-    public void LoadNextLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
-    }
-
-    private void Start()
-    {
-
-    }
     private void Awake()
     {
-        //if (SceneManager.GetActiveScene().name == "Game")
-        //{
-        //    if (PlayerPrefsManager.GetChoosenBallNumber() == 0)
-        //    { PlayerPrefsManager.ChooseBall(1); }
-        //    ballPrefab.GetComponentInChildren<SpriteRenderer>().sprite = ballSprites[PlayerPrefsManager.GetChoosenBallNumber() - 1];
-        //    Instantiate(ballPrefab);   
-        //}
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
     }
+
     private void Update()
     {
         if(SceneManager.GetActiveScene().name=="Game" && Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
-        }
-        if (SceneManager.GetActiveScene().name == "ChooseBallMenu" && Input.GetKeyDown(KeyCode.Escape))
-        {
-            LoadLevel("Game");
+            QuitRequest();
         }
     }
 
+    public void QuitRequest()
+    {
+        Application.Quit();
 
+    }
+    public void LoadLevel(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
     //testing
 
     //public void AddGems()
