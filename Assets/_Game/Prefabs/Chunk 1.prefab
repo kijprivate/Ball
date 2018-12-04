@@ -791,8 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114072607528186232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -827,8 +825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114168688471831282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -840,8 +836,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114291480209794012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -853,8 +847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114719151991177358
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -866,8 +858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114744298574027794
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -879,8 +869,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114753643988760250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -903,8 +891,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114883402661711334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -916,8 +902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecdb5bc56f5346145b2af08b62214a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playAgain: {fileID: 0}
-  isLost: 0
 --- !u!114 &114913502695829492
 MonoBehaviour:
   m_ObjectHideFlags: 1
